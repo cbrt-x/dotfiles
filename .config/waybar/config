@@ -1,0 +1,48 @@
+{
+    "layer": "top",
+    "spacing": 0,
+    "position": "top",
+
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["mpd"],
+    "modules-right": ["wireplumber", "cpu", "memory", "clock"],
+
+    "hyprland/window": {
+        "max-length": 50
+    },
+
+    "mpd": {
+        "format": "{artist}: {title} ~ [{elapsedTime:%M:%S}/{totalTime:%M:%S}] ~ {volume}%",
+        "format-disconnected": "Disconnected",
+        "format-stopped": "Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 1,
+        "tooltip-format": "{artist}\n({date}) {album} - {title}",
+        "tooltip-format-disconnected": "disconnected ",
+        "on-click": "mpc toggle",
+        "on-scroll-up": "mpc volume +1",
+        "on-scroll-down": "mpc volume -1",
+        "smooth-scrolling-threshhold": 0.3,
+        "max-length": 140
+    },
+
+    "clock": {
+        "tooltip-format": "<big>{:%d. %B %Y - %H:%M}</big>",
+        "format": "{:%d.%m.%Y - %H:%M}"
+    },
+
+    "cpu": {
+        "format": "{usage:2}% "
+    },
+
+    "memory": {
+        "format": "{percentage:2}% 󰍛"
+    },
+
+    "wireplumber": {
+        "format": "{volume:2}% 󰋋",
+        "on-scroll-up": "volumectl --change-volume +1",
+        "on-scroll-down": "volumectl --change-volume -1"
+    }
+}
+

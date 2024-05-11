@@ -1,0 +1,84 @@
+@define-color fg rgb(78, 180, 123);
+@define-color bg shade(@fg, 0.55);
+
+window, tooltip {
+    font-family: Jetbrains Mono Nerd Font, monospace;
+    font-weight: bold;
+    font-size: 15pt;
+}
+
+#workspaces,
+#clock,
+#cpu,
+#memory,
+#wireplumber,
+#mpd {
+    padding: 5px 1.25em;
+    margin: 8px 0.5em;
+
+    border-radius: 0.7em;
+    /* border-bottom-left-radius: 0;
+    border-top-right-radius: 0; */
+
+    /* background-image: linear-gradient(135deg, @bg, shade(@bg, 1.375)); */
+    background: @bg;
+
+    color: @fg;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+#workspaces {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}
+
+#workspaces button {
+    padding: 8px 0.75em;
+    margin: 0 0.25em;
+    color: inherit;
+}
+
+#workspaces button:hover {
+    background: @bg;
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.empty {
+    /* display: none; */
+}
+
+#workspaces button.visible {
+    /* background-image: linear-gradient(-45deg, shade(@fg, 0.7), shade(@d_bg, 0.9)); */
+    color: @bg;
+    background: shade(@fg, 0.4);
+    border-radius: inherit;
+}
+
+#workspaces button.active {
+    background: @fg;
+}
+
+window#waybar{
+    /* background-image: linear-gradient(315deg, #5e3c58, #83adb5); */
+    background: transparent;
+    border-radius: 0;
+}
+
+.modules-left, .modules-right {
+    padding: 0 0.4em 0 0.4em;
+}
+
+/* MPD style */
+#mpd.paused,
+#mpd.stopped,
+#wireplumber.muted {
+    opacity: 0.2;
+}
+
+#window {
+    color: @fg;
+    padding-left: 1em;
+}
+

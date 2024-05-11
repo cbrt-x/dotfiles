@@ -1,0 +1,56 @@
+{
+    "hyprland/workspaces": {
+        "all-outputs": true,
+        "format": "{icon} {name}",
+        "format-icons": {
+            "1": "󰢹",
+            "2": "",
+            "3": "󰈣",
+            "4": "",
+            "empty": "󰇄",
+            "default": "󰧨"
+        }
+    },
+
+    "hyprland/window": {
+        "max-length": 50,
+        "seperate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "󰈹  $1"
+        }
+    },
+
+    "mpd": {
+        "format": "{artist}: {title} ~ [{elapsedTime:%M:%S}/{totalTime:%M:%S}] ~ {volume}%",
+        "format-disconnected": "Disconnected",
+        "format-stopped": "Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 1,
+        "tooltip-format": "{artist}\n({date}) {album} - {title}",
+        "tooltip-format-disconnected": "disconnected ",
+        "on-click": "mpc toggle",
+        "on-scroll-up": "mpc volume +1",
+        "on-scroll-down": "mpc volume -1",
+        "smooth-scrolling-threshhold": 0.3,
+        "max-length": 140
+    },
+
+    "clock": {
+        "tooltip-format": "<big>{:%d. %B %Y - %H:%M}</big>",
+        "format": "{:%H:%M}"
+    },
+
+    "cpu": {
+        "format": "{usage:2}% "
+    },
+
+    "memory": {
+        "format": "{percentage:2}% 󰍛"
+    },
+
+    "wireplumber": {
+        "format": "{volume:2}% 󰋋",
+        "on-scroll-up": "volumectl --change-volume +1",
+        "on-scroll-down": "volumectl --change-volume -1"
+    }
+}

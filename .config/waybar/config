@@ -1,0 +1,24 @@
+[
+    {
+        "layer": "top",
+        "position": "top",
+        "spacing": 0,
+        "output": "DP-1",
+        "include": [ "~/.config/waybar/shared.json" ],
+
+        "modules-left": ["hyprland/workspaces", "hyprland/window"],
+        "modules-center": ["mpd"],
+        "modules-right": ["wireplumber", "cpu", "memory", "clock"]
+    },
+    {
+        "layer": "top",
+        "position": "top",
+        "spacing": 0,
+        "output": "!DP-1",
+        "include": [ "~/.config/waybar/shared.json" ],
+
+        "modules-left": ["hyprland/workspaces", "hyprland/window"],
+        "modules-center": [],
+        "modules-right": ["clock"]
+    }
+]

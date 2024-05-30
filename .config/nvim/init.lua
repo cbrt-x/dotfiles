@@ -9,7 +9,7 @@ vim.g.mapleader = ','
 set.timeout = false
 
 -- use current dir
-set.browsedir  = 'last'
+-- set.browsedir  = 'last'
 
 -- show tabs and spaces
 set.list = true

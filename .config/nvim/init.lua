@@ -51,9 +51,25 @@ require('lazy').setup({
         version = '^3',
         ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject'},
     },
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     -- colorschemes
     'folke/tokyonight.nvim',
     'rktjmp/lush.nvim',
+    {
+        "baliestri/aura-theme",
+        lazy = false,
+        priority = 1000,
+        config = function(plugin)
+          vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
+          vim.cmd([[colorscheme aura-dark]])
+        end
+    },
+    {
+        "neanias/everforest-nvim",
+        version = false,
+        lazy = false,
+        priority = 1000, -- make sure to load this before all the other start plugins
+    },
 
     -- line
     'nvim-lualine/lualine.nvim',
@@ -85,11 +101,12 @@ require('lazy').setup({
     'nvim-lua/plenary.nvim'
 })
 
--- set colorscheme
-vim.cmd('colorscheme tokyonight')
+vim.lsp.inlay_hint.enable()
 
-require('lualine').setup({
-})
+-- set colorscheme
+vim.cmd('colorscheme everforest')
+
+require('lualine').setup({})
 
 local telescope = require('telescope')
 telescope.setup({})
@@ -97,6 +114,12 @@ telescope.setup({})
 require('nvim-tree').setup({})
 
 require('cmp').setup({})
+
+require('lsp_lines').setup({})
+-- Disable virtual_text since it's redundant due to lsp_lines.
+vim.diagnostic.config({
+  virtual_text = false,
+})
 
 require('toggleterm').setup({
     open_mapping = '<C-t>',

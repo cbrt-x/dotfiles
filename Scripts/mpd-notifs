@@ -1,0 +1,9 @@
+#!/bin/sh
+
+readonly cover_file="/tmp/mpd-song-cover"
+
+while /bin/true; do
+    mpc readpicture "$(mpc --format '%file%' --wait current)" > $cover_file
+    notify-send -i $cover_file "Playing" "$(mpc --format '%artist% - %title%' current)"
+    rm $cover_file
+done

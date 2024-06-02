@@ -1,0 +1,16 @@
+#!/bin/sh
+
+dunst &
+
+# MPD notifications
+$HOME/Scripts/mpd-notifs &
+
+# KDE connect daemon
+/usr/lib/kdeconnectd &
+
+# play music from the start
+# I may make it possible to decide what is played in the future
+# $HOME/Scripts/mpd-start &
+
+# start mullvad VPN client
+mullvad connect &

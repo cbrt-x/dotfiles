@@ -1,0 +1,16 @@
+#!/bin/sh
+
+pulsemixer "$@"
+
+id=$(cat /tmp/volume-notif-id)
+
+cmd="notify-send"
+[ -n "$id" ] && cmd="$cmd --replace-id=$id"
+
+mute="audio is currently "
+[ $(pulsemixer --get-mute) = "0" ] && mute="${mute}un"
+mute="${mute}muted"
+
+n_id=$($cmd --print-id \
+            --expire-time=1000 "volume changed" "$(pulsemixer --get-volume) $mute")
+echo $n_id > /tmp/volume-notif-id

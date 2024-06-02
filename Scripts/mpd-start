@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+if [ $# -gt 0 ]; then
+    mpc findadd $1 "$(mpc list $1 $2 | fzf)"
+else
+    mpc random on
+    mpc consume off
+    mpc repeat on
+    mpc add /
+fi
+
+mpc play

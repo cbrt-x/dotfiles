@@ -1,0 +1,10 @@
+#!/bin/sh
+
+connected="$(bluetoothctl devices Connected | grep "$1")"
+
+if [ -z "$connected" ]; then
+    notify-send "Attempting to connect" "$1"
+    bluetoothctl connect "$1"
+else
+    notify-send "Already connected" "$(echo "$connected" | cut -d' ' -f3)"
+fi

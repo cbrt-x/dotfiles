@@ -1,0 +1,15 @@
+#!/bin/sh
+
+updates=$(checkupdates)
+exit_status=$?
+message=
+
+if [ $exit_status -eq 0 ]; then
+    message=$updates
+elif [ $exit_status -eq 1 ]; then
+    message="Errors occured"
+elif [ $exit_status -eq 2 ]; then
+    message="None available"
+fi
+
+notify-send --expire-time=0 -- "Package updates" "$message"

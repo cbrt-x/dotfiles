@@ -1,0 +1,9 @@
+#!/bin/sh
+
+id=""
+sptlrx pipe | while read line; do
+    [ ! -n "$line" ] && line="No lyrics found"
+    cmd="notify-send --print-id --expire-time=0 --transient"
+    [ -n "$id" ] && cmd="$cmd --replace-id=$id"
+    id=$($cmd "$(mpc current --format "%title%")" "$line")
+done

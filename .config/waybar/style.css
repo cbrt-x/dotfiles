@@ -1,5 +1,5 @@
-@define-color fg rgb(78, 180, 123);
-@define-color bg shade(@fg, 0.55);
+@define-color fg rgb(230, 230, 230);
+@define-color bg rgb(40, 40, 50);
 
 window, tooltip {
     font-family: Jetbrains Mono Nerd Font, monospace;

@@ -14,3 +14,6 @@ $HOME/Scripts/mpd-notifs &
 
 # start mullvad VPN client
 mullvad connect &
+
+# start slsk client
+nicotine -s &

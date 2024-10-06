@@ -3,7 +3,10 @@
 readonly cover_file="/tmp/mpd-song-cover"
 
 while /bin/true; do
-    mpc readpicture "$(mpc --format '%file%' --wait current)" > $cover_file
-    notify-send -i $cover_file "Playing" "$(mpc --format '%artist% - %title%' current)"
-    rm $cover_file
+    track=$(mpc --format '%file%' --wait current)
+    if [ -n "$track" ]; then
+        mpc readpicture "$track" > $cover_file
+        notify-send -i $cover_file "Playing" "$(mpc --format '%artist% - %title%' current)"
+        rm $cover_file
+    fi
 done

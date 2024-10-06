@@ -25,3 +25,11 @@ alias dot-config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 setopt appendhistory
 
 eval "$(zoxide init --cmd cd zsh)"
+
+function mkdir_ () {
+    mkdir -p "$1" && cd "$1"
+}
+
+function mkcabal () {
+    mkdir_ "$1" && cabal init -m
+}

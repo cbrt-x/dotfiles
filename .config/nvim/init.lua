@@ -1,15 +1,10 @@
 local set = vim.opt
-local cmd = vim.cmd
 local api = vim.api
 
-local key = vim.keymap.set
 
 -- comma as leader
-vim.g.mapleader = ','
+vim.g.mapleader = ","
 set.timeout = false
-
--- use current dir
--- set.browsedir  = 'last'
 
 -- show tabs and spaces
 set.list = true
@@ -21,6 +16,9 @@ set.smartindent = true
 set.autoindent = true
 set.expandtab = true
 
+set.updatetime = 500
+set.cursorline = true
+
 -- side numbers, relative to the cursor
 set.number = true
 set.relativenumber = true
@@ -28,155 +26,149 @@ set.relativenumber = true
 -- lualine does this
 set.showmode = false
 
--- lazy install from source
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({'git', 'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git', '--branch=stable',
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
+require("./lazy-nvim")
 
 -- Plugins
-require('lazy').setup({
-    -- LSP
-    'neovim/nvim-lspconfig',
-    'nvim-treesitter/nvim-treesitter',
-    'ray-x/lsp_signature.nvim',
-    {
-        'mrcjkb/haskell-tools.nvim',
-        version = '^3',
-        ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject'},
+require("lazy").setup({
+    spec = {
+        import = "plugins",
     },
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    -- colorschemes
-    'folke/tokyonight.nvim',
-    'rktjmp/lush.nvim',
-    {
-        "baliestri/aura-theme",
-        lazy = false,
-        priority = 1000,
-        config = function(plugin)
-          vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
-          vim.cmd([[colorscheme aura-dark]])
-        end
-    },
-    {
-        "neanias/everforest-nvim",
-        version = false,
-        lazy = false,
-        priority = 1000, -- make sure to load this before all the other start plugins
-    },
-
-    -- line
-    'nvim-lualine/lualine.nvim',
-
-    -- file explorer
-    'kyazdani42/nvim-tree.lua',
-
-    -- menu
-    'nvim-telescope/telescope.nvim',
-    'weilbith/nvim-code-action-menu',
-
-    -- terminal
-    'akinsho/toggleterm.nvim',
-
-    -- completions
-    'hrsh7th/nvim-cmp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lsp',
-    -- 'saadparwaiz1/cmp_luasnip',
-    'L3MON4D3/LuaSnip',
-    'rafamadriz/friendly-snippets',
-
-    -- syntacies
-    'theRealCarneiro/hyprland-vim-syntax',
-
-    -- dependencies
-    'nvim-lua/plenary.nvim'
 })
 
-vim.lsp.inlay_hint.enable()
+-- vim.lsp.inlay_hint.enable()
 
--- set colorscheme
-vim.cmd('colorscheme everforest')
 
-require('lualine').setup({})
+require("catppuccin").setup({
+    integrations = {
+        native_lsp = {
+            enabled = true,
+            virtual_text = {
+                errors = { "italic" },
+                hints = { "italic" },
+                warnings = { "italic" },
+                information = { "italic" },
+                ok = { "italic" },
+            },
+            underlines = {
+                errors = { "underline" },
+                hints = { "underline" },
+                warnings = { "underline" },
+                information = { "underline" },
+                ok = { "underline" },
+            },
+            inlay_hints = {
+                background = true,
+            },
+        },
 
-local telescope = require('telescope')
-telescope.setup({})
-
-require('nvim-tree').setup({})
-
-require('cmp').setup({})
-
-require('lsp_lines').setup({})
--- Disable virtual_text since it's redundant due to lsp_lines.
-vim.diagnostic.config({
-  virtual_text = false,
-})
-
-require('toggleterm').setup({
-    open_mapping = '<C-t>',
-    direction = 'float',
-    shade_terminals = true
-})
-
--- require('hyprland-vim-syntax')
-
-key('n', '<C-w>', '<cmd>wa<cr>')
-
-key('n', '<leader>eo', '<cmd>NvimTreeToggle<cr>')
-key('n', '<leader>ef', '<cmd>NvimTreeFocus<cr>')
-
-key('n', '<leader>tb', '<cmd>Telescope buffers<cr>')
-key('n', '<leader>tf', '<cmd>Telescope find_files<cr>')
-key('n', '<leader>td', '<cmd>Telescope diagnostics<cr>')
-key('n', '<leader>tg', '<cmd>Telescope live_grep search-dirs=.<cr>')
-key('n', '<leader>ts', '<cmd>Telescope lsp_document_symbols<cr>')
-key('n', '<leader>tc', '<cmd>Telescope commands<cr>')
-
-require('nvim-treesitter.configs').setup({
-    highlight = {
-        enable = true
+        telescope = {
+            enabled = true,
+        }
     }
 })
 
-local nvim_lsp = require('lspconfig')
+-- set colorscheme
+vim.cmd("colorscheme catppuccin-frappe")
+
+-- require("lualine").setup({})
+
+require("telescope").setup({})
+
+require("cmp").setup({})
+
+-- require("lsp_lines").setup({})
+-- Disable virtual_text since it's redundant due to lsp_lines.
+-- vim.diagnostic.config({
+--    virtual_text = false,
+--})
+
+require("toggleterm").setup({
+    open_mapping = "<C-t>",
+    direction = "horizontal",
+    shade_terminals = true,
+    persist_mode = false,
+    autochdir = true,
+})
+
+-- require('hyprland-vim-syntax')
+local key = vim.keymap.set
+
+key("n", "<leader>rc", "<cmd>source $MYVIMRC<cr>")
+
+key("n", "<leader>e", "<cmd>NvimTreeOpen<cr>")
+key("n", "<leader>lf", "<cmd>NvimTreeFindFile<cr>")
+
+key("n", "<leader>tb", "<cmd>Telescope buffers<cr>")
+key("n", "<leader>tf", "<cmd>Telescope find_files<cr>")
+key("n", "<leader>td", "<cmd>Telescope diagnostics<cr>")
+key("n", "<leader>tg", "<cmd>Telescope live_grep search-dirs=.<cr>")
+key("n", "<leader>ts", "<cmd>Telescope lsp_document_symbols<cr>")
+key("n", "<leader>tc", "<cmd>Telescope commands<cr>")
+
+key("n", "<C-Left>", "<cmd>wincmd h<cr>")
+key("n", "<C-Right>", "<cmd>wincmd l<cr>")
+key("n", "<C-Down>", "<cmd>wincmd j<cr>")
+key("n", "<C-Up>", "<cmd>wincmd k<cr>")
+
+key("t", "<Esc>", "<C-\\><C-N><C-w><C-p>")
+-- TODO Why no work
+key("n", "<leader>a", "cmd>echo \"hi\"<cr>")
+key({"n", "v"}, "<leader>cs", "<cmd>ToggleTermSendVisualSelection<cr>")
+
+require("nvim-treesitter.configs").setup({
+    highlight = {
+        enable = true,
+    },
+})
+
+require("actions-preview").setup({
+    layout_strategy = "horizontal",
+})
+
+local nvim_lsp = require("lspconfig")
 -- nvim_lsp.hls.setup {}
-nvim_lsp.pyright.setup {}
-nvim_lsp.texlab.setup {}
+nvim_lsp.pyright.setup({})
+nvim_lsp.texlab.setup({})
+nvim_lsp.lua_ls.setup({
+    settings = {
+        Lua = {
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file('', true),
+            },
+        }
+    }
+})
 
-vim.lsp.set_log_level(0)
-
-api.nvim_create_autocmd('LspAttach', {
-    group = api.nvim_create_augroup('UserLspConfig', {}),
+api.nvim_create_autocmd("LspAttach", {
+    group = api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
-
-        local c = vim.lsp.get_client_by_id(ev.data.client_id)
-        for k, v in ipairs(c) do
-            print(k, v)
-        end
-
         local opts = { buffer = ev.buf }
-        key({'n', 'v'}, '<leader>s', '<cmd>CodeActionMenu<cr>', opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set('n', '<leader>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        key({ "n", "v" }, "<leader>s", require('actions-preview').code_actions, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set("n", "<leader>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, opts)
-        vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<leader>f', function()
-          vim.lsp.buf.format { async = true }
+        vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
+        vim.keymap.set("n", "<leader>f", function()
+            vim.lsp.buf.format({ async = true })
         end, opts)
-    end
+
+        if client.server_capabilities.documentHighlightProvider then
+            vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+            vim.api.nvim_clear_autocmds { buffer = ev.buf, group = "lsp_document_highlight" }
+            vim.api.nvim_create_autocmd("CursorMoved", {
+                callback = vim.lsp.buf.clear_references,
+                buffer = ev.buf,
+                group = "lsp_document_highlight",
+                desc = "Clear All the References",
+            })
+        end
+    end,
 })

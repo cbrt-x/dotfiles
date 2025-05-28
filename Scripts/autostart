@@ -17,3 +17,5 @@ mullvad connect &
 
 # start slsk client
 nicotine -s &
+
+# /usr/bin/discord &

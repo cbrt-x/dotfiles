@@ -3,10 +3,10 @@
         "layer": "top",
         "position": "top",
         "spacing": 0,
-        "output": "DP-1",
+        "output": "DP-2",
         "include": [ "~/.config/waybar/shared.json" ],
 
-        "modules-left": ["hyprland/workspaces", "hyprland/window"],
+        "modules-left": ["hyprland/submap", "hyprland/workspaces", "hyprland/window"],
         "modules-center": ["mpd"],
         "modules-right": ["wireplumber", "cpu", "memory", "clock"]
     },
@@ -14,10 +14,10 @@
         "layer": "top",
         "position": "top",
         "spacing": 0,
-        "output": "!DP-1",
+        "output": "!DP-2",
         "include": [ "~/.config/waybar/shared.json" ],
 
-        "modules-left": ["hyprland/workspaces", "hyprland/window"],
+        "modules-left": ["hyprland/submap", "hyprland/workspaces", "hyprland/window"],
         "modules-center": [],
         "modules-right": ["clock"]
     }

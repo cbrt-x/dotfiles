@@ -1,4 +1,8 @@
 {
+    "hyprland/submap": {
+        "default-submap": "N",
+        "always-on": true
+    },
     "hyprland/workspaces": {
         "all-outputs": true,
         "format": "{icon} {name}",

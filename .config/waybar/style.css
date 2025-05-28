@@ -12,7 +12,8 @@ window, tooltip {
 #cpu,
 #memory,
 #wireplumber,
-#mpd {
+#mpd,
+#submap {
     padding: 5px 1.25em;
     margin: 8px 0.5em;
 
@@ -80,5 +81,9 @@ window#waybar{
 #window {
     color: @fg;
     padding-left: 1em;
+}
+
+#submap:not(.N) {
+    color: #ee5544;
 }
 

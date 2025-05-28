@@ -6,7 +6,7 @@ while /bin/true; do
     track=$(mpc --format '%file%' --wait current)
     if [ -n "$track" ]; then
         mpc readpicture "$track" > $cover_file
-        notify-send -i $cover_file "Playing" "$(mpc --format '%artist% - %title%' current)"
+        notify-send -i $cover_file "$(mpc --format '%artist%' current)" "$(mpc --format '%title%' current)"
         rm $cover_file
     fi
 done

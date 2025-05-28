@@ -21,7 +21,3 @@ export PATH=$PATH:$HOME/Scripts;
 
 export HISTSIZE=1000
 export SAVEHIST=1000
-
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
